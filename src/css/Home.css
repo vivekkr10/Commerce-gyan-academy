@@ -1,0 +1,311 @@
+:root {
+  --sidebar-width: 256px;
+  --sidebar-bg: #ffffff;
+  --sidebar-border: #ddd;
+  --logo-color: #000000;
+  --text-color: #333;
+  --nav-text: rgb(54 54 54);
+  --nav-hover-bg: rgb(241 245 249);
+  --nav-hover-text: #000000;
+  --btn-bg: rgb(37 99 235 / var(--tw-bg-opacity, 1));
+  --btn-hover-bg: #1565c0;
+  --btn-text: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", Arial, sans-serif;
+  background-color: #ffffff;
+  color: var(--text-color);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+}
+
+#home {
+  display: flex;
+  min-height: 100vh;
+}
+
+#main-content {
+  flex: 1;
+  /* padding: 20px; */
+  background: #fff;
+  margin-left: var(--sidebar-width); /* ✅ added for spacing */
+}
+
+#header {
+  width: var(--sidebar-width);
+  height: 100%;
+  background-color: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+#header #container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#logo {
+  display: flex;
+}
+
+#logo h2 {
+  font-weight: 800;
+  font-size: 19px;
+  color: var(--logo-color);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+#nav-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#nav-btns a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: var(--nav-text);
+  transition: all 0.2s ease;
+}
+
+#nav-btns a:hover {
+  background-color: var(--nav-hover-bg);
+  color: var(--nav-hover-text);
+}
+
+#get-started a {
+  display: block;
+  text-align: center;
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  padding: 10px 40px;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: 0.3s ease;
+  font-size: 15px;
+}
+
+#get-started a:hover {
+  background: var(--btn-hover-bg);
+}
+
+/* ========= hero section ============= */
+#hero {
+  padding: 100px 80px;
+}
+
+#hero #container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+#hero-text {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  gap: 30px;
+  line-height: 1.1;
+}
+
+#hero-text h1 {
+  font-size: 50px;
+  font-weight: 1000;
+  color: #000000;
+}
+
+#hero-btn {
+  display: flex;
+  gap: 15px;
+}
+
+#hero-btn a {
+  display: block;
+  text-align: center;
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  padding: 10px 40px;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: 0.3s ease;
+  font-size: 15px;
+}
+
+#hero img {
+  max-width: 400px;
+  box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+}
+
+/* =================== About the Academy ================= */
+#about-academy {
+  padding: 110px;
+  background-color: rgb(248 250 252);
+}
+
+#about-academy #container {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+}
+
+#about-academy h1 {
+  font-size: 30px;
+  font-weight: 1000;
+}
+
+#about-academy p {
+  max-width: 615px;
+  text-align: center;
+  color: #616161;
+}
+
+/* ==================== Popular courses ===================== */
+#popular-courses {
+  padding: 50px;
+  margin: 0;
+}
+
+#popular-courses #container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 70px;
+}
+
+#popular-courses img {
+  max-width: 250px;
+  border-radius: 20px 20px 0 0;
+}
+
+#popular-courses #choose-card {
+  border-radius: 20px 20px 20px 20px;
+  box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+#popular-courses #choose-card:hover {
+  box-shadow: 0px 4px 20px 1px rgba(0, 0, 0, 0.1);
+}
+
+/* =================== Why Choose Us ===================== */
+#why-choose-us {
+  padding: 110px;
+  background-color: rgb(248 250 252);
+}
+
+#why-choose-us #container {
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+  align-items: center;
+}
+
+#why-choose-us h1 {
+  font-size: 30px;
+  font-weight: 1000;
+}
+
+#why-choose-us p {
+  max-width: 615px;
+  text-align: center;
+  color: #616161;
+}
+
+#why-choose-us #cards {
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
+}
+
+#why-choose-us #cards #card-wrap {
+  border-radius: 20px;
+  background-color: #ffffff;
+  padding: 25px;
+}
+
+#why-choose-us #cards #card-wrap span {
+  background-color: #dbeafe;
+  color: #2563eb;
+  padding: 20px;
+  border-radius: 50%;
+  font-size: 35px;
+}
+
+#why-choose-us #cards #card-wrap h2 {
+  font-size: 18px;
+}
+
+#why-choose-us #cards #card-wrap p {
+  font-size: 15px;
+  color: #616161;
+}
+
+/* ================= Book a free demo ================== */
+#demo {
+  padding: 100px;
+  background-color: rgb(248 250 252);
+}
+
+#demo #container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  background-color: #ffffff;
+  padding: 40px;
+}
+
+#demo h1 {
+  font-size: 40px;
+}
+
+#demo p {
+  font-size: 20px;
+}
+
+#demo a {
+  display: block;
+  text-align: center;
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  padding: 10px 40px;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: 0.3s ease;
+  font-size: 15px;
+}
+
+#demo a:hover {
+  background-color: var(--nav-hover-bg);
+  color: var(--nav-hover-text);
+}
