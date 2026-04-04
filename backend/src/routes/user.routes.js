@@ -8,13 +8,20 @@ import {
   verifyForgotOTP,
 } from "../controllers/user.controller.js";
 
+//Admin imports
+import { superAdmin,verifyAdminOTPAndRegister } from "../controllers/admin.controller.js";
+
 const router = express.Router();
 
-router.post("/register", register); // sends OTP
-router.post("/verify-otp", verifyOTPAndRegister);
-router.post("/login", login);
-router.post("/forgot-password", forgotPassword);     // send OTP
-router.post("/verify-forgot-otp", verifyForgotOTP);  // verify OTP
-router.post("/reset-password", resetPassword);       // set new password
+router.post("/users/register", register); // sends OTP
+router.post("/users/verify-otp", verifyOTPAndRegister);
+router.post("/users/login", login); // login for every role
+router.post("/users/forgot-password", forgotPassword); // send OTP
+router.post("/users/verify-forgot-otp", verifyForgotOTP); // verify OTP
+router.post("/users/reset-password", resetPassword); // set new password
+
+// Admin routes
+router.post("/users/super-admin", superAdmin);// sends otp for super admin
+router.post("/users/verify-admin-Otp", verifyAdminOTPAndRegister);// sends otp for super admin
 
 export default router;

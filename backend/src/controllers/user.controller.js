@@ -89,33 +89,52 @@ export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // check user
-    const user = await User.findOne({ email });
+    // get user with password
+    const user = await User.findOne({ email }).select("+password");
+
     if (!user) {
-      return res.status(400).json({ msg: "User not found" });
+      return res.status(404).json({ message: "User not found" });
     }
 
-    // check password
-    const isMatch = await bcrypt.compare(password, user.password);
+    if (!user.isActive) {
+      return res.status(403).json({ message: "Account is deactivated" });
+    }
+
+    // compare password
+    const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      return res.status(400).json({ msg: "Invalid password" });
+      return res.status(401).json({ message: "Invalid password" });
     }
 
+    // update last login
+    user.lastLogin = new Date();
+    await user.save();
+
+    // create token
     const token = jwt.sign(
-      { id: user._id },
-      "mysecret123", 
-      { expiresIn: "7d" }
+      {
+        id: user._id,
+        role: user.role,
+      },
+      process.env.JWT_SECRET || "mysecret123",
+      { expiresIn: "7d" },
     );
 
-    res.json({
-      msg: "Login successful",
+    return res.status(200).json({
+      success: true,
+      message: "Login successful",
       token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
     });
   } catch (err) {
-    res.status(500).json({ err: err.message });
+    return res.status(500).json({ message: err.message });
   }
 };
-
 
 //----------------forgot password (send OTP)----------
 export const forgotPassword = async (req, res) => {
@@ -133,7 +152,6 @@ export const forgotPassword = async (req, res) => {
 
   res.json({ msg: "OTP sent" });
 };
-
 
 export const verifyForgotOTP = async (req, res) => {
   const { email, otp } = req.body;
@@ -169,10 +187,7 @@ export const resetPassword = async (req, res) => {
 
   const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-  await User.findOneAndUpdate(
-    { email },
-    { password: hashedPassword }
-  );
+  await User.findOneAndUpdate({ email }, { password: hashedPassword });
 
   deleteForgotOTP(email);
 

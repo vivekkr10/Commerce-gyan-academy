@@ -15,7 +15,7 @@ export const sendOTPEmail = async (toEmail, otp) => {
         name: process.env.BREVO_SENDER_NAME,
       },
       
-      to: [{ email: toEmail }],
+      to: [{ email: toEmail }], 
       subject: "Your OTP Code",
       htmlContent: `<h3>Your OTP is: ${otp}</h3>`,
     });
