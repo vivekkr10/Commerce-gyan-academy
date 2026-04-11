@@ -17,17 +17,19 @@ import {
 // generate OTP
 const generateOTP = () =>
   Math.floor(100000 + Math.random() * 900000).toString();
-
+const allowedRoles = ["student", "teacher"];
 // 1️⃣ REGISTER STEP (send OTP)
 export const register = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
-
+    const { name, email, password, role } = req.body;
+    if (!name || !email || !password) {
+      return res.status(400).json({ msg: "All fields required" });
+    }
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ msg: "User already exists" });
     }
-
+    const roleToSave = allowedRoles.includes(role) ? role : "student";
     const otp = generateOTP();
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -36,7 +38,9 @@ export const register = async (req, res) => {
       name,
       email,
       password: hashedPassword,
+      role: roleToSave,
       otp,
+      expire: Date.now() + 5 * 60 * 1000, // 5 min
     });
 
     await sendOTPEmail(email, otp);
@@ -72,6 +76,7 @@ export const verifyOTPAndRegister = async (req, res) => {
       name: tempUser.name,
       email: tempUser.email,
       password: tempUser.password,
+      role: tempUser.role,
     });
 
     await user.save();

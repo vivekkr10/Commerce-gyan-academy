@@ -7,6 +7,8 @@ import {
   resetPassword,
   verifyForgotOTP,
 } from "../controllers/user.controller.js";
+import protect from "../middlewares/auth.middleware.js"
+import allowRoles from "../middlewares/role.middleware.js"
 
 //Admin imports
 import { superAdmin,verifyAdminOTPAndRegister } from "../controllers/admin.controller.js";

@@ -2,6 +2,8 @@ import express from "express";
 import connectDB from "./src/config/db.js";
 import { config } from "./src/config/env.js";
 import userRoutes from "./src/routes/user.routes.js";
+import studentRoutes from "./src/routes/student.routes.js";
+import teacherRoutes from "./src/routes/teacher.routes.js";
 
 const app = express();
 
@@ -10,6 +12,8 @@ app.use(express.json());
 
 // Routes
 app.use("/api", userRoutes);
+app.use("/api", studentRoutes);
+app.use("/api", teacherRoutes);
 
 const startServer = async () => {
   await connectDB();

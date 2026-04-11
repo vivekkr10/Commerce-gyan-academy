@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-export const protect = (req, res, next) => {
+const protect = (req, res, next) => {
   try {
     let token = req.headers.authorization;
 
@@ -22,3 +22,5 @@ export const protect = (req, res, next) => {
     return res.status(401).json({ message: "Invalid or expired token" });
   }
 };
+
+export default protect;
