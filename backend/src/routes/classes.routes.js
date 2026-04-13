@@ -1,22 +1,21 @@
-import { addSubjects,deleteSubject } from "../controllers/subject.controller.js";
+import { addClass, deleteClass } from "../controllers/classes.controller.js";
 import protect from "../middlewares/auth.middleware.js";
 import allowRoles from "../middlewares/role.middleware.js";
 import express from "express";
 
 const router = express.Router();
 
-// Only admin can add and delete subjects
 router.post(
-  "/admin/add-subject",
+  "/admin/add-class",
   protect,
   allowRoles("admin", "super_admin"),
-  addSubjects,
+  addClass,
 );
 router.delete(
-  "/admin/delete-subject/:id",
+  "/admin/delete-class/:id",
   protect,
   allowRoles("admin", "super_admin"),
-  deleteSubject,
+  deleteClass,
 );
 
 export default router;
