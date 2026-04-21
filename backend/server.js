@@ -5,7 +5,9 @@ import userRoutes from "./src/routes/user.routes.js";
 import studentRoutes from "./src/routes/student.routes.js";
 import teacherRoutes from "./src/routes/teacher.routes.js";
 import subjectRoutes from "./src/routes/subject.routes.js";
-import classRoutes from "./src/routes/classes.routes.js"
+import classRoutes from "./src/routes/classes.routes.js";
+import uploadsRoutes from "./src/routes/upload.routes.js";
+import UploadHomework from "./src/routes/homework.routes.js"
 
 const app = express();
 
@@ -18,6 +20,8 @@ app.use("/api", studentRoutes);
 app.use("/api", teacherRoutes);
 app.use("/api", subjectRoutes);
 app.use("/api", classRoutes);
+app.use("/api", uploadsRoutes);
+app.use("/api", UploadHomework);
 
 const startServer = async () => {
   await connectDB();
@@ -26,5 +30,15 @@ const startServer = async () => {
     console.log(`Server is running on http://localhost:${config.PORT}`);
   });
 };
+
+app.use((err, req, res, next) => {
+  console.log("💀 GLOBAL ERROR CAUGHT:");
+  console.log(err);
+
+  res.status(500).json({
+    error: err.message || "Something went wrong",
+    full: err,
+  });
+});
 
 startServer();
