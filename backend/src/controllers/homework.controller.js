@@ -24,9 +24,9 @@ export const uploadHomework = async (req, res) => {
       // ✅ Detect file type (simple logic)
       let fileType = "text";
 
-      if (req.files.some(file => file.mimetype === "application/pdf")) {
+      if (req.files.some((file) => file.mimetype === "application/pdf")) {
         fileType = "pdf";
-      } else if (req.files.some(file => file.mimetype.startsWith("image"))) {
+      } else if (req.files.some((file) => file.mimetype.startsWith("image"))) {
         fileType = "image";
       }
 
@@ -50,10 +50,27 @@ export const uploadHomework = async (req, res) => {
         message: "Homework uploaded successfully",
         homework,
       });
-
     } catch (error) {
       console.log("🔥 Controller Error:", error);
       res.status(500).json({ error: error.message });
     }
   });
+};
+
+export const deleteHomework = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const homework = await Homework.findById(id);
+
+    if (!homework) {
+      return res.status(404).json({ message: "Homework not found" });
+    }
+    await Homework.findByIdAndDelete(id);
+    res.json({
+      success: true,
+      message: "Homework Deleted",
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };

@@ -1,7 +1,9 @@
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { config } from "../config/env.js";
 import { sendOTPEmail } from "../services/mail.service.js";
+
 import {
   setTempUser,
   getTempUser,
@@ -137,7 +139,9 @@ export const verifyOTPAndRegister = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-
+    console.log("BODY:", req.body);
+    console.log("PARAMS:", req.params);
+    console.log("QUERY:", req.query);
     // get user with password
     const user = await User.findOne({ email }).select("+password");
 
@@ -165,13 +169,14 @@ export const login = async (req, res) => {
         id: user._id,
         role: user.role,
       },
-      process.env.JWT_SECRET || "mysecret123",
+      config.JWT_SECRET,
       { expiresIn: "7d" },
     );
 
     return res.status(200).json({
       success: true,
       message: "Login successful",
+
       token,
       user: {
         id: user._id,
